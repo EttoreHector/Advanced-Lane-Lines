@@ -11,7 +11,7 @@ import matplotlib.image as mpimg
 import glob
 from moviepy.editor import VideoFileClip
 import matplotlib.pyplot as plt
-import class_line
+
 from functions import (fit_polynomial, find_lane_lines_pixel,
                        calculate_curvature, plot_highlighted_lane_lines,
                        calculate_offset, find_calibration_parameters,
@@ -95,8 +95,8 @@ def pipeline(img):
     ### 9. FIND CAR OFFSET WITH RESPECT TO THE MIDDLE LANE ###
     car_offset = calculate_offset(left_fit_warped,right_fit_warped,img_size,
                                   x_conv_factor=xm_per_pix)
-    print(left_curverad,'m - ', right_curverad,'m')
-    print(car_offset,' m')
+    #print(left_curverad,'m - ', right_curverad,'m')
+    #print(car_offset,' m')
     
     
     ### 10. COLOUR-UP LANE IN ORIGINAL UNDISTORTED IMAGE
@@ -112,9 +112,9 @@ def pipeline(img):
 
 #-------------------------------------------
 
-pipeline(mpimg.imread('./test_images/test5.jpg'))
+#pipeline(mpimg.imread('./test_images/test5.jpg'))
 
-#video_output = 'project_video_output.mp4'
-#clip = VideoFileClip('project_video.mp4')
-#new_clip = clip.fl_image(pipeline)
-#new_clip.write_videofile(video_output)
+video_output = 'project_video_output.mp4'
+clip = VideoFileClip('project_video.mp4')
+new_clip = clip.fl_image(pipeline)
+new_clip.write_videofile(video_output)
