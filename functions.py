@@ -302,7 +302,7 @@ def project_back(warped,undist,left_fitx,right_fitx,ploty,Minv):
 
 def calculate_curvature(left_fit,right_fit,img_size,):
     ploty = np.linspace(0, img_size[1]-1, num=img_size[1])# to cover same y-range as image
-    y_eval = np.max(ploty)
+    y_eval = np.max(ploty)/2
     left_curverad = ((1 + (2*left_fit[0]*y_eval + left_fit[1])**2)**1.5) / np.absolute(2*left_fit[0])
     right_curverad = ((1 + (2*right_fit[0]*y_eval + right_fit[1])**2)**1.5) / np.absolute(2*right_fit[0])
     

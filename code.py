@@ -60,12 +60,12 @@ def pipeline(img):
     
     # (Create binary mask in the hls color-space)   
     hls_mask = hls_select(undist, thresh=(120, 255))
-    
 
     # (Create final binary mask)
     binary_mask = np.zeros_like(sobelx_mask_R)
-    binary_mask[(((sobelx_mask_R == 1) | (sobelx_mask_B == 1)) | 
-            (hls_mask == 1)) & (dir_mask == 1)] = 1
+    binary_mask[((((sobelx_mask_R == 1) | (sobelx_mask_B == 1)) | 
+            (hls_mask == 1)) & (dir_mask == 1))] = 1
+    #binary_mask[(yellow == 1) | (white == 1) | (white_2 == 1) | (white_3 == 1)] = 1
     #plot_images(undist, binary_mask, cm2='gray')
 
     
@@ -134,24 +134,24 @@ def pipeline(img):
     text_color = (255,255,255)
     text_curv = ('Radius of curvature: (L): ' + 
                  str("{:6.0f}".format(left_avg_curvature)) + ' m' +
-                 ' - (R): ' + str("{:6.0f}".format(right_avg_curvature)) + ' m')
+                 ' - (R): ' + str("{:6.0f}".format(right_avg_curvature)) +' m')
     cv2.putText(newimage, text_curv, (x1,y1), cv2.FONT_HERSHEY_PLAIN, 
                 2.0, text_color, 2)
     text_offset = ('Offset from center: ' + str('{:3.2f}'.format(car_offset_avg)) +
                    ' m')
     cv2.putText(newimage, text_offset, (x1,y2), cv2.FONT_HERSHEY_PLAIN, 
                 2.0, text_color, 2)
-    #fig = plt.figure(figsize=(20, 11.25))
-    #ax = fig.add_subplot(111)
-    #ax.imshow(newimage, interpolation='nearest')
+    fig = plt.figure(figsize=(20, 11.25))
+    ax = fig.add_subplot(111)
+    ax.imshow(newimage, interpolation='nearest')
     return newimage
 
 #-------------------------------------------
 
-#pipeline(mpimg.imread('./test_images/test5.jpg'))
+pipeline(mpimg.imread('./test_images/test5.jpg'))
 
-video_output = 'project_video_output.mp4'
-clip = VideoFileClip('project_video.mp4')
-new_clip = clip.fl_image(pipeline)
-new_clip.write_videofile(video_output)
+#video_output = 'project_video_output.mp4'
+#clip = VideoFileClip('project_video.mp4')
+#new_clip = clip.fl_image(pipeline)
+#new_clip.write_videofile(video_output)
 
